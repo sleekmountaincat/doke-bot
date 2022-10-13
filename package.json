@@ -1,0 +1,22 @@
+{
+  "name": "doke-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleekmountaincat/doke-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sleekmountaincat/doke-bot/issues"
+  },
+  "homepage": "https://github.com/sleekmountaincat/doke-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.6.0"
+  }
+}
