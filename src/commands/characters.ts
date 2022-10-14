@@ -5,12 +5,16 @@ import {
   ChannelType,
   PermissionFlagsBits,
   OverwriteType,
-  TextChannel
+  TextChannel,
+  EmbedBuilder
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import { Command } from "../models/command";
+import * as charactersData from "../characters.json"
+import { DokeCharacter } from "src/models/doke-character";
 
 const CHARACTER_CHANNEL = "characters";
+const characters: DokeCharacter[] = charactersData as DokeCharacter[]
 
 export const Characters: Command = {
   name: "characters",
@@ -18,9 +22,7 @@ export const Characters: Command = {
   type: ApplicationCommandType.ChatInput,
   run: async (client: Client, interaction: CommandInteraction) => {
     Logger.info(
-      `${interaction.commandName.toUpperCase()}: '${
-        interaction.commandName
-      }' request from '${interaction.user.username}'`
+      `${interaction.commandName.toUpperCase()}: request from '${interaction.user.username}'`
     );
 
     const guild = interaction.guild;
@@ -51,7 +53,7 @@ export const Characters: Command = {
     }
 
     Logger.info(
-      `${interaction.commandName.toUpperCase()}: creating character channel (${CHARACTER_CHANNEL}`
+      `${interaction.commandName.toUpperCase()}: creating character channel (${CHARACTER_CHANNEL})`
     );
 
     const characterChannel = await guild?.channels
@@ -84,7 +86,7 @@ export const Characters: Command = {
       });
 
     Logger.info(
-      `${interaction.commandName.toUpperCase()}: populating character channel (${CHARACTER_CHANNEL}`
+      `${interaction.commandName.toUpperCase()}: populating character channel (${CHARACTER_CHANNEL})`
     );
 
     if (characterChannel instanceof TextChannel) {
@@ -108,5 +110,15 @@ export const Characters: Command = {
 };
 
 async function populateCharacterChannel(characterChannel: TextChannel) {
-  characterChannel.send("donse");
+  const exampleEmbed = new EmbedBuilder()
+	.setColor(0x0099FF)
+	.setTitle(characters[0].name)
+	.setURL(characters[0].imgSrc)
+	.setDescription(characters[0].deal)
+	.addFields(
+		{ name: 'On your turn, you can freely:', value: characters[0].thing },
+	)
+	.setImage(characters[0].imgSrc)
+  
+  characterChannel.send( {embeds: [exampleEmbed]} );
 }

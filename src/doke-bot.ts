@@ -7,8 +7,7 @@ import { Logger } from "./utils/logger"
 Logger.info("bot is starting...")
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds]
+    intents: [GatewayIntentBits.Guilds]
 });
 
 ready(client);

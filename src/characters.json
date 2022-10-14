@@ -1,0 +1,170 @@
+[
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Aerifel_FUZ.png",
+    "name": "Aerifel",
+    "deal": "Enchanted princess",
+    "thing": "Befriend the unlikely"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Aorta_FUZ.png",
+    "name": "Aorta",
+    "deal": "Bloody battlebabe",
+    "thing": "Deal an injury; heal an injury"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Bardou_FUZ.png",
+    "name": "Bardou",
+    "deal": "Shifty warrior",
+    "thing": "Manifest an animal feature"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Bruno_FUZ.png",
+    "name": "Bruno",
+    "deal": "Mannish Fighter",
+    "thing": "Sunder a mundan object"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Claymore_FUZ.png",
+    "name": "Claymore",
+    "deal": "Animated Armor",
+    "thing": "Ignore mortal harm"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Crimson_FUZ.png",
+    "name": "Crimson",
+    "deal": "Third-eyed Oracle",
+    "thing": "Ask for extra information"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Darling_FUZ.png",
+    "name": "Darling",
+    "deal": "Devilish Warlock",
+    "thing": "Make a 'devil's bargain'"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Diskordia_FUZ.png",
+    "name": "Diskordia",
+    "deal": "Riddling Sphinx",
+    "thing": "Puzzle someone"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Echo_FUZ.png",
+    "name": "Echo",
+    "deal": "Demon Summoner",
+    "thing": "Summon a demon"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Eldris_FUZ.png",
+    "name": "Eldris",
+    "deal": "Elvish Ranger",
+    "thing": "Find a path"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Forgelorde_FUZ.png",
+    "name": "Forgelorde",
+    "deal": "Dwarvish Runepriest",
+    "thing": "Forge an enchanted weapon"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Fugue_FUZ.png",
+    "name": "Fugue",
+    "deal": "Satyr Reveler",
+    "thing": "Get someone to dance"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Githgish_FUZ.png",
+    "name": "Githgish",
+    "deal": "Extraplanar Swordmage",
+    "thing": "Bampf"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Goboom_FUZ.png",
+    "name": "Goboom",
+    "deal": "Goblin Bombardier",
+    "thing": "Throw a bomb"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Henbane_FUZ.png",
+    "name": "Henbane",
+    "deal": "Changeling Illusionist",
+    "thing": "Produce a minor illusion"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Hopscotch_FUZ.png",
+    "name": "Hopscotch",
+    "deal": "Rabbitkin Wizard",
+    "thing": "Conjure a small object"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Ignoble_FUZ.png",
+    "name": "Ignoble",
+    "deal": "Common Rebel",
+    "thing": "Disrupt Hierarchy"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/IvaVulture_FUZ.png",
+    "name": "Iva Vulture",
+    "deal": "Seafaring Swashbuckler",
+    "thing": "Distracting flourish"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Janitress_FUZ.png",
+    "name": "Janitress",
+    "deal": "Amazon Mankiller",
+    "thing": "Kill a man"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Jo_FUZ.png",
+    "name": "Jo",
+    "deal": "Plucky Adventurer",
+    "thing": "Beginner's Luck"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Kite-in-Water_FUZ.png",
+    "name": "Kite-in-water",
+    "deal": "Catkin Monk",
+    "thing": "Perform acrobatic feat"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Knifepoint_FUZ.png",
+    "name": "Knifepoint",
+    "deal": "Cursed Hombeast",
+    "thing": "Grow a hom"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Lalalancelot_FUZ.png",
+    "name": "Lalalancelot",
+    "deal": "Fancy Lancer",
+    "thing": "Charge"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Lupin_FUZ.png",
+    "name": "Lupin",
+    "deal": "Immortal Hunter",
+    "thing": "Have a cursed elixer"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Marina_FUZ.png",
+    "name": "Marina",
+    "deal": "Mermaid Siren",
+    "thing": "Draw attention"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Mytra_FUZ.png",
+    "name": "Mythra",
+    "deal": "Dragonkin Paladin",
+    "thing": "Shield an ally"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Nightowl_FUZ.png",
+    "name": "Nightowl",
+    "deal": "Arcanist Archer",
+    "thing": "Fire a magic arrow"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Noth_FUZ.png",
+    "name": "Noth",
+    "deal": "Hagspawn Witch",
+    "thing": "Summon animal familiar"
+  }
+]
