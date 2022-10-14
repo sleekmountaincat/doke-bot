@@ -10,6 +10,13 @@ export const Enlist: Command = {
         Logger.info(`receeived enlist request from ${interaction.user.username}`)
         const content = "Hello there!";
 
+        // const guildId = interaction.guildId
+
+        // const channel
+
+        // channels.forEach((chan) => {
+        //     Logger.info(chan.toJSON)
+        // })
         await interaction.followUp({
             ephemeral: true,
             content
