@@ -5,8 +5,7 @@ import {
   ChannelType,
   PermissionFlagsBits,
   OverwriteType,
-  TextChannel,
-  GuildTextBasedChannel,
+  TextChannel
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import { Command } from "../models/command";
