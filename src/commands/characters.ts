@@ -6,15 +6,18 @@ import {
   PermissionFlagsBits,
   OverwriteType,
   TextChannel,
-  EmbedBuilder
+  EmbedBuilder,
+  Embed,
+  APIEmbed,
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import { Command } from "../models/command";
-import * as charactersData from "../characters.json"
+import charactersData from "../characters.json";
 import { DokeCharacter } from "src/models/doke-character";
+import { arrayChunkBySize } from "array-chunk-split";
 
 const CHARACTER_CHANNEL = "characters";
-const characters: DokeCharacter[] = charactersData as DokeCharacter[]
+const characters: DokeCharacter[] = charactersData as DokeCharacter[];
 
 export const Characters: Command = {
   name: "characters",
@@ -22,7 +25,9 @@ export const Characters: Command = {
   type: ApplicationCommandType.ChatInput,
   run: async (client: Client, interaction: CommandInteraction) => {
     Logger.info(
-      `${interaction.commandName.toUpperCase()}: request from '${interaction.user.username}'`
+      `${interaction.commandName.toUpperCase()}: request from '${
+        interaction.user.username
+      }'`
     );
 
     const guild = interaction.guild;
@@ -90,7 +95,7 @@ export const Characters: Command = {
     );
 
     if (characterChannel instanceof TextChannel) {
-      await populateCharacterChannel(characterChannel);
+      await populateCharacterChannel(characterChannel, interaction);
     } else {
       Logger.error(
         `${interaction.commandName.toUpperCase()}: could not find character channel (${CHARACTER_CHANNEL})`
@@ -102,23 +107,49 @@ export const Characters: Command = {
       });
     }
 
-    await interaction.followUp({
-      ephemeral: true,
-      content: "character channel refreshed!",
-    });
+    await interaction
+      .followUp({
+        ephemeral: true,
+        content: "character channel refreshed!",
+      })
+      .catch((err) => {
+        Logger.warn(
+          `${interaction.commandName.toUpperCase()}: could not respond to request: ${err}`
+        );
+      });
   },
 };
 
-async function populateCharacterChannel(characterChannel: TextChannel) {
-  const exampleEmbed = new EmbedBuilder()
-	.setColor(0x0099FF)
-	.setTitle(characters[0].name)
-	.setURL(characters[0].imgSrc)
-	.setDescription(characters[0].deal)
-	.addFields(
-		{ name: 'On your turn, you can freely:', value: characters[0].thing },
-	)
-	.setImage(characters[0].imgSrc)
-  
-  characterChannel.send( {embeds: [exampleEmbed]} );
+async function populateCharacterChannel(
+  characterChannel: TextChannel,
+  interaction: CommandInteraction
+) {
+  const characterEmbeds: EmbedBuilder[] = characters.map((character) => {
+    return new EmbedBuilder()
+      .setColor(0x0099ff)
+      .setTitle(character.name)
+      .setURL(character.imgSrc)
+      .setDescription(character.deal)
+      .addFields({
+        name: "On your turn, you can freely:",
+        value: character.thing,
+      })
+      .setImage(character.imgSrc);
+  });
+
+  const characterEmbedsChunks = arrayChunkBySize(characterEmbeds, 10);
+
+  for (const embeds of characterEmbedsChunks) {
+    await characterChannel.send({ embeds }).catch((err) => {
+      Logger.error(
+        `${interaction.commandName.toUpperCase()}: could not send character embed chunk: ${err}`
+      );
+
+      return interaction.followUp({
+        ephemeral: true,
+        content:
+          "well, shucks. there was an error populating a portion of the characters channel. so ry",
+      });
+    });
+  }
 }

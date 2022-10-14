@@ -2,11 +2,12 @@
   "name": "doke-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "doke-bot.js",
   "scripts": {
     "start": "NODE_OPTIONS=--no-warnings ts-node src/doke-bot.ts | pino-pretty -i pid,hostname -t 'yyyy-mm-dd HH:MM:ss'"
   },
   "dependencies": {
+    "array-chunk-split": "^2.0.12",
     "busboy": "^1.6.0",
     "discord-api-types": "^0.37.12",
     "discord.js": "^14.6.0",
