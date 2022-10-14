@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/doke-bot.ts"
+    "start": "NODE_OPTIONS=--no-warnings ts-node src/doke-bot.ts | pino-pretty -i pid,hostname -t 'yyyy-mm-dd HH:MM:ss'"
   },
   "dependencies": {
     "busboy": "^1.6.0",
@@ -17,6 +17,7 @@
     "lodash.snakecase": "^4.1.1",
     "lodash.uniqwith": "^4.5.0",
     "peek-readable": "^5.0.0",
+    "pino": "^7.0.0-rc.9",
     "readable-stream": "^3.6.0",
     "readable-web-to-node-stream": "^3.0.2",
     "safe-buffer": "^5.2.1",

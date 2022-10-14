@@ -1,4 +1,5 @@
 import { Client } from "discord.js";
+import { Logger } from "../utils/logger";
 import { Commands } from "../commands";
 
 export default (client: Client): void => {
@@ -7,10 +8,10 @@ export default (client: Client): void => {
             return;
         }
 
-        console.log(`registering commands...`)
+        Logger.info(`registering commands...`)
 
         await client.application.commands.set(Commands);
         
-        console.log(`${client.user.username} is online`);
+        Logger.info(`${client.user.username} is online`);
     });
 };
