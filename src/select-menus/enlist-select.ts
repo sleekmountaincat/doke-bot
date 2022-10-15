@@ -1,10 +1,9 @@
 import {
   Client,
   ApplicationCommandType,
-  ActionRowBuilder,
-  SelectMenuBuilder,
   SelectMenuInteraction,
   EmbedBuilder,
+  GuildMember,
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import charactersData from "../characters.json";
@@ -47,10 +46,101 @@ export const EnlistSelect: SelectMenuSelection = {
       })
       .setImage(character.imgSrc);
 
+    await assignCharacterRole(interaction, character);
+
     await interaction.update({
       content: `you have chosen your adventurer! please wait to be summoned onto the stage`,
       components: [],
-      embeds: [embed]
+      embeds: [embed],
     });
   },
 };
+
+async function assignCharacterRole(
+  interaction: SelectMenuInteraction,
+  character: DokeCharacter
+) {
+  const characterRoleName = `${character.name} - ${character.deal}`;
+
+  interaction.guild?.roles.fetch();
+
+  if (
+    interaction.guild?.roles.cache.some(
+      (role) => role.name === characterRoleName
+    )
+  ) {
+    Logger.info(`${CustomId.ENLIST_SELECT}: character role exists`);
+  } else {
+    Logger.info(
+      `${CustomId.ENLIST_SELECT}: character role doesnt exist, creating`
+    );
+
+    await interaction.guild?.roles
+      .create({
+        name: characterRoleName,
+        color: "Random",
+        hoist: true,
+      })
+      .catch((err) => {
+        Logger.error(
+          `${CustomId.ENLIST_SELECT}: could not create role: ${err}`
+        );
+
+        return;
+      });
+  }
+
+  await interaction.guild?.roles.fetch();
+
+  const characterRole = interaction.guild?.roles.cache.find(
+    (role) => role.name === characterRoleName
+  );
+
+  const member = interaction.guild?.members.cache.get(interaction.user.id);
+
+  removeExistingCharacterRolesFromMember(member!);
+
+  await member!.roles.add(characterRole!).catch((err) => {
+    Logger.error(
+      `${CustomId.ENLIST_SELECT}: could not attach role '${characterRoleName}' to '${member?.displayName}': ${err}`
+    );
+
+    return;
+  });
+
+  Logger.info(
+    `${CustomId.ENLIST_SELECT}: attached role '${characterRoleName}' to '${member?.displayName}'`
+  );
+}
+
+async function removeExistingCharacterRolesFromMember(member: GuildMember) {
+  const allCharacterRoleNames = characters.map((character) => {
+    return `${character.name} - ${character.deal}`;
+  });
+
+  const memberRoles = member.roles.cache;
+
+  const rolesToDelete = memberRoles.filter((role) =>
+    allCharacterRoleNames.includes(role.name)
+  );
+
+  if (rolesToDelete.size) {
+    Logger.info(
+      `${
+        CustomId.ENLIST_SELECT
+      }: found existing roles, removing member from: '${rolesToDelete.map(
+        (role) => {
+          return role.name;
+        }
+      )}'`
+    );
+
+    for (const role of rolesToDelete) {
+      await member.roles.remove(role).catch((err) => {
+        Logger.error(
+          `${CustomId.ENLIST_SELECT}: could not remove member '${member.displayName}' from role: '${role[1].name}': ${err}`
+        );
+      });
+    }
+  }
+}
