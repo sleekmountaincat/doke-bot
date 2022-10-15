@@ -3,23 +3,26 @@ import { Logger } from "../utils/logger";
 import { Commands } from "../commands";
 
 export default (client: Client): void => {
-    client.on("interactionCreate", async (interaction: Interaction) => {
-        if (interaction.isCommand() || interaction.isContextMenuCommand()) {
-            await handleSlashCommand(client, interaction);
-        }
-    });
+  client.on("interactionCreate", async (interaction: Interaction) => {
+    if (interaction.isCommand() || interaction.isContextMenuCommand()) {
+      await handleSlashCommand(client, interaction);
+    }
+  });
 };
 
-const handleSlashCommand = async (client: Client, interaction: CommandInteraction): Promise<void> => {
-    const slashCommand = Commands.find(c => c.name === interaction.commandName);
+const handleSlashCommand = async (
+  client: Client,
+  interaction: CommandInteraction
+): Promise<void> => {
+  const slashCommand = Commands.find((c) => c.name === interaction.commandName);
 
-    if (!slashCommand) {
-        Logger.error(`error: can't find command '${interaction.commandName}'`)
-        interaction.followUp({ content: "An error has occurred" });
-        return;
-    }
+  if (!slashCommand) {
+    Logger.error(`error: can't find command '${interaction.commandName}'`);
+    interaction.followUp({ content: "An error has occurred" });
+    return;
+  }
 
-    await interaction.deferReply();
+  await interaction.deferReply({ ephemeral: true });
 
-    slashCommand.run(client, interaction);
+  slashCommand.run(client, interaction);
 };

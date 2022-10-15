@@ -7,8 +7,6 @@ import {
   OverwriteType,
   TextChannel,
   EmbedBuilder,
-  Embed,
-  APIEmbed,
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import { Command } from "../models/command";
@@ -17,7 +15,7 @@ import { DokeCharacter } from "src/models/doke-character";
 import { arrayChunkBySize } from "array-chunk-split";
 
 const CHARACTER_CHANNEL = "characters";
-const characters: DokeCharacter[] = charactersData as DokeCharacter[];
+const CHARACTERS: DokeCharacter[] = charactersData as DokeCharacter[];
 
 export const Characters: Command = {
   name: "characters",
@@ -124,9 +122,9 @@ async function populateCharacterChannel(
   characterChannel: TextChannel,
   interaction: CommandInteraction
 ) {
-  const characterEmbeds: EmbedBuilder[] = characters.map((character) => {
+  const characterEmbeds: EmbedBuilder[] = CHARACTERS.map((character) => {
     return new EmbedBuilder()
-      .setColor(0x0099ff)
+      .setColor("Random")
       .setTitle(character.name)
       .setURL(character.imgSrc)
       .setDescription(character.deal)
