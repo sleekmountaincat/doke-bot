@@ -11,11 +11,11 @@ import {
 import { Logger } from "../utils/logger";
 import { Command } from "../models/command";
 import charactersData from "../characters.json";
-import { DokeCharacter } from "src/models/doke-character";
+import { DokeCharacter } from "../models/doke-character";
 import { arrayChunkBySize } from "array-chunk-split";
 
 const CHARACTER_CHANNEL = "characters";
-const CHARACTERS: DokeCharacter[] = charactersData as DokeCharacter[];
+const characters: DokeCharacter[] = charactersData as DokeCharacter[];
 
 export const Characters: Command = {
   name: "characters",
@@ -122,7 +122,7 @@ async function populateCharacterChannel(
   characterChannel: TextChannel,
   interaction: CommandInteraction
 ) {
-  const characterEmbeds: EmbedBuilder[] = CHARACTERS.map((character) => {
+  const characterEmbeds: EmbedBuilder[] = characters.map((character) => {
     return new EmbedBuilder()
       .setColor("Random")
       .setTitle(character.name)
