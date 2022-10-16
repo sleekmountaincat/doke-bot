@@ -1,5 +1,5 @@
 # transpile ts
-FROM node:16.9.1-alpine3.11 as ts-compiler
+FROM --platform=linux/amd64 node:16.9.1-alpine3.11 as ts-compiler
 
 WORKDIR doke-bot
 
@@ -14,7 +14,7 @@ RUN npm i
 RUN npm run build
 
 # grab node deps
-FROM node:16.9.1-alpine3.11 as node-builder
+FROM --platform=linux/amd64 node:16.9.1-alpine3.11 as node-builder
 
 WORKDIR doke-bot
 
@@ -25,7 +25,7 @@ COPY --from=ts-compiler /doke-bot/dist/ .
 RUN npm ci
 
 # distroless final stage
-FROM gcr.io/distroless/nodejs:16
+FROM --platform=linux/amd64 gcr.io/distroless/nodejs:16
 
 WORKDIR doke-bot
 
