@@ -4,7 +4,8 @@
   "description": "",
   "main": "doke-bot.js",
   "scripts": {
-    "start": "NODE_OPTIONS=--no-warnings ts-node src/doke-bot.ts | pino-pretty -i pid,hostname -t 'yyyy-mm-dd HH:MM:ss'"
+    "start": "NODE_OPTIONS=--no-warnings ts-node src/doke-bot.ts | pino-pretty -i pid,hostname -t 'yyyy-mm-dd HH:MM:ss'",
+    "build": "tsc"
   },
   "dependencies": {
     "array-chunk-split": "^2.0.12",
