@@ -4,7 +4,6 @@ import {
   SelectMenuInteraction,
   EmbedBuilder,
   GuildMember,
-  TextChannel,
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import charactersData from "../characters.json";
@@ -101,7 +100,7 @@ async function assignCharacterRole(
 
   const member = interaction.guild?.members.cache.get(interaction.user.id);
 
-  removeExistingCharacterRolesFromMember(member!);
+  await removeExistingCharacterRolesFromMember(member!);
 
   await member!.roles.add(characterRole!).catch((err) => {
     Logger.error(
@@ -152,27 +151,47 @@ async function updateRosterChannel(
   interaction: SelectMenuInteraction,
   character: DokeCharacter
 ) {
-  const embed = new EmbedBuilder()
-    .setColor("Random")
-    .setThumbnail(character.imgSrc)
-    .addFields([
-      {
-        name: `Player`,
-        value: `<@${interaction.user.id}>`,
-        inline: true,
-      },
-      {
-        name: "Character",
-        value: `${character.name} - ${character.deal}`,
-        inline: true,
-      },
-    ]);
-
   const rosterChannel = interaction.guild?.channels.cache.find(
     (channel) => channel.name === ROSTER_CHANNEL
   );
 
   if (rosterChannel && rosterChannel.isTextBased()) {
+    const rosterMessages = await rosterChannel.messages.fetch({ limit: 100 });
+
+    for (const message of rosterMessages) {
+      const rosterEmbedPlayerField = message[1].embeds[0].fields.find(
+        (field) => field.name === "Player"
+      );
+
+      if (rosterEmbedPlayerField?.value === `<@${interaction.user.id}>`) {
+        Logger.info(
+          `${CustomId.ENLIST_SELECT}: removing roster message for '${interaction.user.username}'`
+        );
+
+        await rosterChannel.messages.delete(message[0]).catch((err) => {
+          Logger.warn(
+            `${CustomId.ENLIST_SELECT}: could not remove roster message for '${interaction.user.username}': ${err}`
+          );
+        });
+      }
+    }
+
+    const embed = new EmbedBuilder()
+      .setColor("Random")
+      .setThumbnail(character.imgSrc)
+      .addFields([
+        {
+          name: `Player`,
+          value: `<@${interaction.user.id}>`,
+          inline: true,
+        },
+        {
+          name: "Character",
+          value: `${character.name} - ${character.deal}`,
+          inline: true,
+        },
+      ]);
+
     await rosterChannel.send({ embeds: [embed] });
   } else {
     Logger.warn(
