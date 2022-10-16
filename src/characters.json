@@ -128,8 +128,8 @@
   {
     "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Knifepoint_FUZ.png",
     "name": "Knifepoint",
-    "deal": "Cursed Hombeast",
-    "thing": "Grow a hom"
+    "deal": "Cursed Hornbeast",
+    "thing": "Grow a horn"
   },
   {
     "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Lalalancelot_FUZ.png",
@@ -166,5 +166,149 @@
     "name": "Noth",
     "deal": "Hagspawn Witch",
     "thing": "Summon animal familiar"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Ophelia_FUZ.png",
+    "name": "Ophelia",
+    "deal": "Haunted Doll",
+    "thing": "Unnerving movement"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Orgus_FUZ.png",
+    "name": "Orgus",
+    "deal": "Orcish Berserker",
+    "thing": "Keep fighting"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Pendragon_FUZ.png",
+    "name": "Pendragon",
+    "deal": "Revenant Oathbreaker",
+    "thing": "Tragic sililoquy"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Pom_petal_FUZ.png",
+    "name": "Pom'petal",
+    "deal": "Dryad Druid",
+    "thing": "Grow a vine"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Quake_FUZ.png",
+    "name": "Quake",
+    "deal": "Giant Crusher",
+    "thing": "Crush small things"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Quickstone_FUZ.png",
+    "name": "Quickstone",
+    "deal": "Gnomish Tinkerer",
+    "thing": "Craft a clockwork trinket"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Rascal_FUZ.png",
+    "name": "Rascal",
+    "deal": "Rogueish Urchin",
+    "thing": "Pocket smoething"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Runagate_FUZ.png",
+    "name": "Runagate",
+    "deal": "Feral Troll",
+    "thing": "Regenerate"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Scooter_FUZ.png",
+    "name": "Scooter",
+    "deal": "Dog Squire",
+    "thing": "Help a friend"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Stitchquick_FUZ.png",
+    "name": "Stitchquick",
+    "deal": "Mousekin Tailor",
+    "thing": "Alter some clothes"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Tarragon_FUZ.png",
+    "name": "Tarragon",
+    "deal": "Firbolg Mender",
+    "thing": "Fix Something"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Tempesta_FUZ.png",
+    "name": "Tempesta",
+    "deal": "Elemental Sorceress",
+    "thing": "Create elemental whisp"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Umber_FUZ.png",
+    "name": "Umber",
+    "deal": "Withered Necromancer",
+    "thing": "Animate a corpse"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Usurper_FUZ.png",
+    "name": "Usurper",
+    "deal": "Gun Guy",
+    "thing": "Have the only gun"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Valerian_FUZ.png",
+    "name": "Valerian",
+    "deal": "Rakish Bard",
+    "thing": "Suduce an NPC"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Vesper_FUZ.png",
+    "name": "Vesper",
+    "deal": "Reawakened Psion",
+    "thing": "Telekinesis"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Whitlow_FUZ.png",
+    "name": "Whitlow",
+    "deal": "Foxkin Duelist",
+    "thing": "Issue a challenge"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Willowthorn_FUZ.png",
+    "name": "Willowthorn",
+    "deal": "Faerie Assassin",
+    "thing": "Hide"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Xenon_FUZ.png",
+    "name": "Xenon",
+    "deal": "Shadow Mimic",
+    "thing": "Make a copy"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Xylo_FUZ.png",
+    "name": "Xylo",
+    "deal": "Wizened Loremaster",
+    "thing": "Add a minor detail"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Yarrow_FUZ.png",
+    "name": "Yarrow",
+    "deal": "Spirited Horsegirl",
+    "thing": "Horsetrick"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Yogg_FUZ.png",
+    "name": "Yogg",
+    "deal": "Bugbear Investigator",
+    "thing": "Find a clue"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Zephyr_FUZ.png",
+    "name": "Zephyr",
+    "deal": "Friendly Owlbear",
+    "thing": "Bearhug"
+  },
+  {
+    "imgSrc": "https://sleekmountaincat.github.io/doke-bot/images/Zuriel_FUZ.png",
+    "name": "Zuriel",
+    "deal": "Sepharic Healer",
+    "thing": "Heal another"
   }
 ]
