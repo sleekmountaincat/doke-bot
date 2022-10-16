@@ -4,12 +4,14 @@ import {
   SelectMenuInteraction,
   EmbedBuilder,
   GuildMember,
+  TextChannel,
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import charactersData from "../characters.json";
 import { DokeCharacter } from "../models/doke-character";
 import { CustomId } from "../models/custom-id";
 import { SelectMenuSelection } from "../models/select-menu-selection";
+import { ROSTER_CHANNEL } from "../commands/initialize";
 
 const characters: DokeCharacter[] = charactersData as DokeCharacter[];
 
@@ -47,6 +49,7 @@ export const EnlistSelect: SelectMenuSelection = {
       .setImage(character.imgSrc);
 
     await assignCharacterRole(interaction, character);
+    await updateRosterChannel(interaction, character);
 
     await interaction.update({
       content: `you have chosen your adventurer! please wait to be summoned onto the stage`,
@@ -143,4 +146,41 @@ async function removeExistingCharacterRolesFromMember(member: GuildMember) {
       });
     }
   }
+}
+
+async function updateRosterChannel(
+  interaction: SelectMenuInteraction,
+  character: DokeCharacter
+) {
+  const embed = new EmbedBuilder()
+    .setColor("Random")
+    .setThumbnail(character.imgSrc)
+    .addFields([
+      {
+        name: `Player`,
+        value: `<@${interaction.user.id}>`,
+        inline: true,
+      },
+      {
+        name: "Character",
+        value: `${character.name} - ${character.deal}`,
+        inline: true,
+      },
+    ]);
+
+  const rosterChannel = interaction.guild?.channels.cache.find(
+    (channel) => channel.name === ROSTER_CHANNEL
+  );
+
+  if (rosterChannel && rosterChannel.isTextBased()) {
+    await rosterChannel.send({ embeds: [embed] });
+  } else {
+    Logger.warn(
+      `${CustomId.ENLIST_SELECT}: could not update roster channel for '${interaction.user.username}'`
+    );
+  }
+
+  Logger.info(
+    `${CustomId.ENLIST_SELECT}: updated roster channel for '${interaction.user.username}'`
+  );
 }

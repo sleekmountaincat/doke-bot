@@ -14,11 +14,13 @@ import charactersData from "../characters.json";
 import { DokeCharacter } from "../models/doke-character";
 import { arrayChunkBySize } from "array-chunk-split";
 
-const CHARACTER_CHANNEL = "characters";
 const characters: DokeCharacter[] = charactersData as DokeCharacter[];
 
-export const Characters: Command = {
-  name: "characters",
+export const CHARACTER_CHANNEL = "characters";
+export const ROSTER_CHANNEL = "roster";
+
+export const Initialize: Command = {
+  name: "initialize",
   description: "populate character channel with charcater sheets!",
   type: ApplicationCommandType.ChatInput,
   run: async (client: Client, interaction: CommandInteraction) => {
@@ -28,65 +30,15 @@ export const Characters: Command = {
       }'`
     );
 
-    const guild = interaction.guild;
-
-    const existingCharacterChannel = guild?.channels.cache.find(
-      (c) => c.name === CHARACTER_CHANNEL
+    const characterChannel = await recreateChannel(
+      interaction,
+      CHARACTER_CHANNEL,
+      "choose your adventurer!!"
     );
 
-    if (!existingCharacterChannel) {
-      Logger.info(
-        `${interaction.commandName.toUpperCase()}: character channel (${CHARACTER_CHANNEL}) does not exist`
-      );
-    } else {
-      Logger.info(
-        `${interaction.commandName.toUpperCase()}: character channel (${CHARACTER_CHANNEL}) exists, deleting`
-      );
-      await existingCharacterChannel.delete().catch((err) => {
-        Logger.error(
-          `${interaction.commandName.toUpperCase()}: could not delete channel (${CHARACTER_CHANNEL}): ${err}`
-        );
+    await recreateChannel(interaction, ROSTER_CHANNEL, "current roster!!");
 
-        return interaction.followUp({
-          ephemeral: true,
-          content:
-            "well, shucks. there was an error deleting the characters channel",
-        });
-      });
-    }
-
-    Logger.info(
-      `${interaction.commandName.toUpperCase()}: creating character channel (${CHARACTER_CHANNEL})`
-    );
-
-    const characterChannel = await guild?.channels
-      .create({
-        name: CHARACTER_CHANNEL,
-        topic: "choose your adeventurer!",
-        type: ChannelType.GuildText,
-        permissionOverwrites: [
-          {
-            id: guild?.roles.everyone,
-            allow: [
-              PermissionFlagsBits.ViewChannel,
-              PermissionFlagsBits.ReadMessageHistory,
-            ],
-            deny: [PermissionFlagsBits.SendMessages],
-            type: OverwriteType.Role,
-          },
-        ],
-      })
-      .catch((err) => {
-        Logger.error(
-          `${interaction.commandName.toUpperCase()}: could not create character channel (${CHARACTER_CHANNEL}): ${err}`
-        );
-
-        return interaction.followUp({
-          ephemeral: true,
-          content:
-            "well, shucks. there was an error creating the characters channel",
-        });
-      });
+    // await removeCharacterRoles(interaction) todo
 
     Logger.info(
       `${interaction.commandName.toUpperCase()}: populating character channel (${CHARACTER_CHANNEL})`
@@ -108,7 +60,8 @@ export const Characters: Command = {
     await interaction
       .followUp({
         ephemeral: true,
-        content: "character channel refreshed!",
+        content:
+          "doke-bot has been initialized! character channel created and refreshed, and the roster channel has been created!",
       })
       .catch((err) => {
         Logger.warn(
@@ -150,4 +103,71 @@ async function populateCharacterChannel(
       });
     });
   }
+}
+
+async function recreateChannel(
+  interaction: CommandInteraction,
+  channelName: string,
+  channelTopic: string
+): Promise<TextChannel | void | undefined> {
+  const existingChannel = interaction.guild?.channels.cache.find(
+    (c) => c.name === channelName
+  );
+
+  if (!existingChannel) {
+    Logger.info(
+      `${interaction.commandName.toUpperCase()}: channel '${channelName}' does not exist`
+    );
+  } else {
+    Logger.info(
+      `${interaction.commandName.toUpperCase()}: channel '${channelName}' exists, deleting`
+    );
+
+    await existingChannel.delete().catch((err) => {
+      Logger.error(
+        `${interaction.commandName.toUpperCase()}: could not delete channel '${channelName}': ${err}`
+      );
+
+      interaction.followUp({
+        ephemeral: true,
+        content:
+          "well, shucks. there was an error deleting the initializing doke-bot channels. maybe you should read a book instead for once",
+      });
+    });
+  }
+
+  Logger.info(
+    `${interaction.commandName.toUpperCase()}: creating channel '${channelName}'`
+  );
+
+  const channel = await interaction.guild?.channels
+    .create({
+      name: channelName,
+      topic: channelTopic,
+      type: ChannelType.GuildText,
+      permissionOverwrites: [
+        {
+          id: interaction.guild?.roles.everyone,
+          allow: [
+            PermissionFlagsBits.ViewChannel,
+            PermissionFlagsBits.ReadMessageHistory,
+          ],
+          deny: [PermissionFlagsBits.SendMessages],
+          type: OverwriteType.Role,
+        },
+      ],
+    })
+    .catch((err) => {
+      Logger.error(
+        `${interaction.commandName.toUpperCase()}: could not create channel '${channelName}': ${err}`
+      );
+
+      interaction.followUp({
+        ephemeral: true,
+        content:
+          "well, shucks. there was an error creating the characters channel",
+      });
+    });
+
+  return channel;
 }
