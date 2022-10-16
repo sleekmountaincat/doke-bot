@@ -3,7 +3,7 @@ import {
   ApplicationCommandType,
   SelectMenuInteraction,
   EmbedBuilder,
-  GuildMember,
+  TextChannel,
 } from "discord.js";
 import { Logger } from "../utils/logger";
 import charactersData from "../characters.json";
@@ -11,6 +11,10 @@ import { DokeCharacter } from "../models/doke-character";
 import { CustomId } from "../models/custom-id";
 import { SelectMenuSelection } from "../models/select-menu-selection";
 import { ROSTER_CHANNEL } from "../commands/initialize";
+import {
+  removeExistingCharacterRolesFromMember,
+  removeRosterEmbedsForMember,
+} from "../common/helper-functions";
 
 const characters: DokeCharacter[] = charactersData as DokeCharacter[];
 
@@ -100,7 +104,7 @@ async function assignCharacterRole(
 
   const member = interaction.guild?.members.cache.get(interaction.user.id);
 
-  await removeExistingCharacterRolesFromMember(member!);
+  await removeExistingCharacterRolesFromMember(member!, CustomId.ENLIST_SELECT);
 
   await member!.roles.add(characterRole!).catch((err) => {
     Logger.error(
@@ -115,38 +119,6 @@ async function assignCharacterRole(
   );
 }
 
-async function removeExistingCharacterRolesFromMember(member: GuildMember) {
-  const allCharacterRoleNames = characters.map((character) => {
-    return `${character.name} - ${character.deal}`;
-  });
-
-  const memberRoles = member.roles.cache;
-
-  const rolesToDelete = memberRoles.filter((role) =>
-    allCharacterRoleNames.includes(role.name)
-  );
-
-  if (rolesToDelete.size) {
-    Logger.info(
-      `${
-        CustomId.ENLIST_SELECT
-      }: found existing roles, removing member from: '${rolesToDelete.map(
-        (role) => {
-          return role.name;
-        }
-      )}'`
-    );
-
-    for (const role of rolesToDelete) {
-      await member.roles.remove(role).catch((err) => {
-        Logger.error(
-          `${CustomId.ENLIST_SELECT}: could not remove member '${member.displayName}' from role: '${role[1].name}': ${err}`
-        );
-      });
-    }
-  }
-}
-
 async function updateRosterChannel(
   interaction: SelectMenuInteraction,
   character: DokeCharacter
@@ -156,25 +128,11 @@ async function updateRosterChannel(
   );
 
   if (rosterChannel && rosterChannel.isTextBased()) {
-    const rosterMessages = await rosterChannel.messages.fetch({ limit: 100 });
-
-    for (const message of rosterMessages) {
-      const rosterEmbedPlayerField = message[1].embeds[0].fields.find(
-        (field) => field.name === "Player"
-      );
-
-      if (rosterEmbedPlayerField?.value === `<@${interaction.user.id}>`) {
-        Logger.info(
-          `${CustomId.ENLIST_SELECT}: removing roster message for '${interaction.user.username}'`
-        );
-
-        await rosterChannel.messages.delete(message[0]).catch((err) => {
-          Logger.warn(
-            `${CustomId.ENLIST_SELECT}: could not remove roster message for '${interaction.user.username}': ${err}`
-          );
-        });
-      }
-    }
+    await removeRosterEmbedsForMember(
+      rosterChannel as TextChannel,
+      interaction.user,
+      CustomId.ENLIST_SELECT
+    );
 
     const embed = new EmbedBuilder()
       .setColor("Random")
